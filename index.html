@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Discussion - Louise & Félix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --font-title: 'Cormorant Garamond', serif;
+            --font-question: 'Lora', serif;
+            --color-powder-pink: #FADADD;
+            --color-beige: #F5EBE0;
+            --color-terracotta: #E3A39A;
+            --color-text-dark: #4B3832;
+        }
+
+        /* Styles généraux */
+        body {
+            background-color: var(--color-beige);
+            font-family: var(--font-question);
+            color: var(--color-text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Conteneur principal de l'application */
+        .app-container {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 2.5rem; /* 40px */
+            line-height: 1.2;
+            color: var(--color-text-dark);
+        }
+
+        /* Styles de la page Menu */
+        .menu-title {
+            font-size: 1.75rem; /* 28px */
+            margin-bottom: 0.5rem;
+        }
+        .menu-subtitle {
+            font-family: var(--font-question);
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: var(--color-text-dark);
+            opacity: 0.8;
+        }
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .menu-button {
+            background-color: white;
+            border: 1px solid var(--color-terracotta);
+            color: var(--color-text-dark);
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 15px -5px rgba(120, 100, 100, 0.1);
+        }
+        .menu-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px -5px rgba(120, 100, 100, 0.2);
+            background-color: #fffbf8;
+        }
+
+        /* Styles de la page Discussion */
+        .back-to-menu {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            font-family: var(--font-title);
+            color: var(--color-terracotta);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .discussion-container {
+            position: relative;
+        }
+
+        /* La carte à flasher */
+        .flashcard {
+            background-color: white;
+            border: 1px solid var(--color-terracotta);
+            border-radius: 12px;
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            margin: 1.5rem auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            position: relative;
+            transition: transform 0.5s, opacity 0.5s;
+            transform-style: preserve-3d;
+        }
+        
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 1.5rem;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .flashcard-front {
+            background-color: var(--color-powder-pink);
+            border-radius: 12px;
+        }
+        
+        .flashcard-front .names {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            font-weight: 600;
+            color: white;
+            border: 2px solid white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .flashcard-back {
+            background-color: white;
+            border-radius: 12px;
+            transform: rotateY(180deg);
+        }
+
+        .card-question {
+            font-size: 1.25rem; /* 20px */
+            font-style: italic;
+            line-height: 1.6;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-decorator {
+            width: 60%;
+            text-align: center;
+            position: relative;
+            color: var(--color-terracotta);
+            opacity: 0.8;
+            margin: 0.75rem 0;
+            font-size: 1rem;
+        }
+
+        .card-decorator::before, .card-decorator::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 38%;
+            height: 1px;
+            background-color: currentColor;
+        }
+        .card-decorator::before { left: 0; }
+        .card-decorator::after { right: 0; }
+        
+        .card-footer-app {
+            position: absolute;
+            bottom: 1rem;
+            right: 1.5rem;
+            font-family: var(--font-title);
+            font-size: 0.8rem;
+            color: var(--color-terracotta);
+        }
+
+        .family-icon-app {
+            position: absolute;
+            bottom: 0.5rem;
+            left: 0.5rem;
+            width: 40px;
+            height: 40px;
+        }
+
+        .draw-button {
+            background-color: var(--color-terracotta);
+            color: white;
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px -5px var(--color-terracotta);
+        }
+
+        .draw-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px -5px var(--color-terracotta);
+        }
+        
+        .draw-button:active {
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Page Menu -->
+        <div id="menu-page">
+            <h1 class="menu-title">Louise & Félix</h1>
+            <p class="menu-subtitle">préparent leur mariage</p>
+            <div class="menu-buttons">
+                <button class="menu-button" id="goto-challenge">Défi</button>
+                <button class="menu-button" id="goto-discussion">Sujet de discussion</button>
+                <button class="menu-button" id="goto-other">Autre</button>
+            </div>
+        </div>
+
+        <!-- Page Sujet de Discussion -->
+        <div id="discussion-page" class="hidden">
+            <div class="discussion-container">
+                <a id="back-to-menu" class="back-to-menu">← Menu</a>
+                <h1>Jeu de Discussion</h1>
+                
+                <div id="flashcard" class="flashcard">
+                    <div class="flashcard-face flashcard-front">
+                         <div class="names">Louise & Félix</div>
+                    </div>
+                    <div class="flashcard-face flashcard-back">
+                        <div class="family-icon-app">
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                                <g transform="translate(5, 10)">
+                                    <circle cx="25" cy="30" r="12" fill="#F5EBE0"/><path d="M15 20 Q 25 10, 35 20" stroke="#6d4c41" fill="none" stroke-width="4" stroke-linecap="round"/><rect x="15" y="42" width="20" height="35" rx="5" fill="#aab8c2"/>
+                                    <circle cx="55" cy="30" r="12" fill="#F5EBE0"/><path d="M45 22 Q 55 12, 65 22" stroke="#FFD700" fill="none" stroke-width="4" stroke-linecap="round"/><circle cx="52" cy="30" r="1.5" fill="#3498db"/><circle cx="58" cy="30" r="1.5" fill="#3498db"/><rect x="45" y="42" width="20" height="35" rx="5" fill="#FADADD"/>
+                                    <g transform="translate(70, 45)"><path d="M 0,20 C 0,0 20,0 20,20 C 20,35 15,35 10,30 C 5,35 0,35 0,20 Z" fill="#e6a456"/><circle cx="5" cy="15" r="2" fill="black"/><circle cx="15" cy="15" r="2" fill="black"/><path d="M 8,22 Q 10,25 12,22" stroke="black" fill="none" stroke-width="1"/><path d="M 2,8 Q 0,4 2,14" stroke="#e6a456" fill="none" stroke-width="3" stroke-linecap="round"/><path d="M 18,8 Q 20,4 18,14" stroke="#e6a456" fill="none" stroke-width="3" stroke-linecap="round"/></g>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="card-decorator">&#10048;</div>
+                        <p id="question-text" class="card-question">Cliquez sur le bouton pour tirer votre première carte !</p>
+                        <div class="card-decorator">&#10048;</div>
+                        <div class="card-footer-app">Louise & Félix - 09/08/25</div>
+                    </div>
+                </div>
+
+                <button id="draw-button" class="draw-button">Tirer une carte</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Navigation ---
+        const menuPage = document.getElementById('menu-page');
+        const discussionPage = document.getElementById('discussion-page');
+
+        const gotoDiscussionBtn = document.getElementById('goto-discussion');
+        const backToMenuBtn = document.getElementById('back-to-menu');
+        
+        // Pour l'instant, les autres boutons affichent une alerte
+        const gotoChallengeBtn = document.getElementById('goto-challenge');
+        const gotoOtherBtn = document.getElementById('goto-other');
+
+        gotoDiscussionBtn.addEventListener('click', () => {
+            menuPage.classList.add('hidden');
+            discussionPage.classList.remove('hidden');
+        });
+
+        backToMenuBtn.addEventListener('click', () => {
+            discussionPage.classList.add('hidden');
+            menuPage.classList.remove('hidden');
+        });
+        
+        gotoChallengeBtn.addEventListener('click', () => {
+            alert('Cette section sera bientôt disponible !');
+        });
+        
+        gotoOtherBtn.addEventListener('click', () => {
+            alert('Cette section sera bientôt disponible !');
+        });
+
+
+        // --- Logique du jeu de cartes ---
+        const questions = [
+            "Qu'est ce qui te fait le plus peur pour l'avenir (pas lié à notre relation) ?", "Quel est ton souvenir préféré dans notre histoire ?", "Qu'as-tu appris sur toi grâce à moi ?", "Quel moment a fait basculer notre relation dans quelque chose de sérieux ?", "Qu'est ce que je t'apporte ?", "Dans quels moments tu te sens le plus aimée par moi ?", "Qu'est ce que tu n'as jamais osé me dire mais que tu aimerais que je sache ?", "Qu'est ce qui te fait le plus peur pour l'avenir (lié à notre relation) ?", "Qu'est ce qui te fait le plus te dire que notre couple va fonctionner ?", "Quand as-tu le plus besoin de moi ?", "Que puis-je faire pour que tu te sentes mieux compris(e) dans le couple ?", "Quelles sont nos plus grandes forces en tant qu'équipe ?", "Te sens-tu à l'aise pour exprimer tes envies \"au lit\" ?", "Quel trait de ta personalité n'exprimes-tu que avec moi ?", "Qu'est ce que tu voudrais que je comprenne mieux chez toi ?", "Comment notre couple t'a fait évoluer ?", "Qu'est ce qui te fait être fière de notre relation ?", "Qu'est ce qui te fait le plus peur dans le mariage ?", "Comment est-ce que tu nous vois dans 10 ans ?", "Pour toi c'est quoi une vie réussie ?", "Quel projet à deux te ferait le plus vibrer dans un monde où tout est possible ?", "Qu'est ce que tu veux nous souhaiter pour notre mariage ?", "Qu'est ce que tu aimes dans notre quotidien ?", "Quel est ton moment préféré de la journée avec moi ?", "Quelle attention te fait le plus plaisir ?", "Qu'est ce qu'on devrait faire plus souvent ?", "Quelles sont les valeurs les plus importantes pour toi ?", "Selon toi, de quoi a besoin un couple pour être solide ?", "C'est quoi pour toi la fidélité ?", "Quelle difficulté t'a prouvé qu'on était une belle équipe ?", "Si on était deux animaux, on serait lesquels ?", "Si on écrivait un livre ensemble, comment on l'appelerait ?", "Si tu pouvais revivre une journée avec moi, laquelle ce serait ?", "Tu serais prête à faire quoi par amour ?", "Si je disparaissais pendant un mois, qu'est ce qui te manquerait le plus ?", "Si tu devais me faire une promesse, laquelle est-ce que ça serait ?", "Au delà de la cérémonie, qu'est ce que le mariage signifie pour toi ?", "Qu'est ce que tu redoutes le plus dans le mariage ?", "Qu'est ce que tu aimes le plus dans l'idée du mariage ?", "Est-ce que Marvin a changé ta perception de certaines choses ?", "C'est quoi pour toi le secret du bonheur ?", "Qu'est ce qui est le plus important pour toi dans la vie ?", "Est-ce que la phrase \"jusqu'à ce que la mort nous sépare\" est vraiment à respecter selon toi ?", "C'est quoi pour toi une chouette famille ?", "Qu'est ce que tu souhaites à nos enfants ?", "Décris moi tes futurs enfants comme tu rêverais qu'ils soient ?", "Qu'est ce qui pourrait te faire mettre fin à ton mariage ?", "Pourquoi tu as voulu te marier avec moi ?", "Qu'est ce que tu nous souhaites pour le 9 août ?", "Qu'est ce que tu voudrais changer chez toi ? Et chez moi ?", "Joker : choisis la question que tu veux poser !", "Joker : choisis la question que tu veux poser !"
+        ];
+
+        let deck = [...questions];
+        
+        const questionTextElement = document.getElementById('question-text');
+        const drawButton = document.getElementById('draw-button');
+        const flashcard = document.getElementById('flashcard');
+        let isCardFlipped = false;
+        let lastQuestion = '';
+
+        function shuffleDeck() {
+            deck = [...questions].sort(() => Math.random() - 0.5);
+        }
+
+        drawButton.addEventListener('click', () => {
+            if (deck.length === 0) {
+                shuffleDeck();
+                if (deck[0] === lastQuestion && questions.length > 1) {
+                    deck.push(deck.shift());
+                }
+            }
+
+            const randomQuestion = deck.pop();
+            lastQuestion = randomQuestion;
+
+            if (isCardFlipped) {
+                flashcard.classList.remove('is-flipped');
+                setTimeout(() => {
+                    questionTextElement.textContent = randomQuestion;
+                    flashcard.classList.add('is-flipped');
+                }, 300);
+            } else {
+                questionTextElement.textContent = randomQuestion;
+                flashcard.classList.add('is-flipped');
+                isCardFlipped = true;
+            }
+            
+            drawButton.textContent = "Tirer une autre carte";
+        });
+        
+        shuffleDeck();
+
+    </script>
+</body>
+</html>
