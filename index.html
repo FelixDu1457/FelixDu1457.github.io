@@ -59,6 +59,47 @@
             line-height: 1.2;
             color: var(--color-text-dark);
         }
+        
+        /* NOUVEAU : Styles pour l'écran de connexion */
+        #login-page {
+            background-color: #F8F5F1;
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        #login-title {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        #password-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #EAE2D9;
+            border-radius: 8px;
+            text-align: center;
+            font-family: var(--font-question);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        #login-button {
+            background-color: var(--color-terracotta);
+            color: white;
+            font-family: var(--font-title);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        #error-message {
+            color: #ef4444;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
 
         /* Styles de la page Menu */
         .menu-title {
@@ -148,16 +189,20 @@
         }
         .game-page-container {
             position: relative;
+            padding-top: 4rem;
         }
-        /* MODIFIÉ : Mise en page du titre corrigée */
         .page-title {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            padding: 0 4rem;
             display: flex;
             flex-direction: column;
             line-height: 1.2;
             color: var(--color-text-dark);
             text-align: center;
-            margin-bottom: 1.5rem;
-            margin-top: 1rem;
         }
         .page-title .main-text {
             font-family: var(--font-title);
@@ -412,8 +457,19 @@
     </style>
 </head>
 <body>
+    
+    <!-- NOUVEAU : Écran de connexion -->
+    <div id="login-page" class="app-container">
+        <h1 id="login-title">Accès privé</h1>
+        <form id="login-form">
+            <input type="password" id="password-input" placeholder="Mot de passe">
+            <button id="login-button" type="submit">Entrer</button>
+            <p id="error-message" class="hidden">Mot de passe incorrect.</p>
+        </form>
+    </div>
 
-    <div class="app-container">
+    <!-- Contenu principal de l'application -->
+    <div id="main-app" class="app-container hidden">
         <!-- Page Menu -->
         <div id="menu-page">
             <h1 class="menu-title">Louise et Félix ...</h1>
@@ -571,6 +627,30 @@
         const gameManager = {
             games: {},
             init() {
+                // Login
+                const loginPage = document.getElementById('login-page');
+                const mainApp = document.getElementById('main-app');
+                const loginForm = document.getElementById('login-form');
+                const passwordInput = document.getElementById('password-input');
+                const errorMessage = document.getElementById('error-message');
+
+                if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                    loginPage.classList.add('hidden');
+                    mainApp.classList.remove('hidden');
+                }
+
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    if (passwordInput.value === 'Marvin') {
+                        sessionStorage.setItem('isLoggedIn', 'true');
+                        loginPage.classList.add('hidden');
+                        mainApp.classList.remove('hidden');
+                    } else {
+                        errorMessage.classList.remove('hidden');
+                        passwordInput.value = '';
+                    }
+                });
+
                 // Navigation
                 const menuPage = document.getElementById('menu-page');
                 const discussionPage = document.getElementById('discussion-page');
@@ -649,7 +729,7 @@
                         game.resetButton.classList.add('hidden');
                         setTimeout(() => {
                             game.textElement.textContent = game.initialText;
-                        }, 600); // Moitié de la durée de l'animation
+                        }, 600);
                         this.updateCounter(gameId);
                         this.saveState(gameId, game.deck);
                     },
@@ -663,7 +743,7 @@
                             setTimeout(() => {
                                 game.textElement.textContent = randomItem;
                                 game.flashcard.classList.add('is-flipped');
-                            }, 600); // Moitié de la durée de l'animation
+                            }, 600);
                         } else {
                             game.textElement.textContent = randomItem;
                             game.flashcard.classList.add('is-flipped');
