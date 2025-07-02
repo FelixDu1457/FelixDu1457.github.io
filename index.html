@@ -18,6 +18,12 @@
             --color-terracotta: #E3A39A;
             --color-text-dark: #4B3832;
             --color-fun-yellow: #FDE68A;
+            --color-fun-yellow-dark: #FBBF24;
+            --color-fun-yellow-light: #FFFBEB;
+            --color-plans-green: #E0F2E9;
+            --color-plans-green-dark: #3D8B66;
+            --color-plans-green-light: #F8FBF9;
+            --color-grey: #a1a1aa;
         }
 
         /* Styles généraux */
@@ -49,65 +55,122 @@
         h1 {
             font-family: var(--font-title);
             font-weight: 700;
-            font-size: clamp(2rem, 8vw, 2.5rem); /* Responsive font size */
+            font-size: clamp(2rem, 8vw, 2.5rem);
             line-height: 1.2;
             color: var(--color-text-dark);
         }
 
         /* Styles de la page Menu */
         .menu-title {
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
-        }
-        .menu-subtitle {
-            font-family: var(--font-question);
-            font-style: italic;
-            font-size: 1.1rem;
+            font-size: 2.25rem;
             margin-bottom: 2.5rem;
-            color: var(--color-text-dark);
-            opacity: 0.8;
         }
         .menu-buttons {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
-        /* MODIFIÉ : Styles des boutons du menu pour mobile */
         .menu-button {
-            background-color: white;
-            border: 1px solid var(--color-terracotta);
+            background-color: #F8F5F1;
+            border: 1px solid #EAE2D9;
             color: var(--color-text-dark);
-            font-family: var(--font-title);
-            font-size: clamp(1rem, 4.5vw, 1.25rem); /* Responsive font size */
-            font-weight: 600;
-            padding: 1rem 0.75rem;
-            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            border-radius: 9999px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 15px -5px rgba(120, 100, 100, 0.1);
-            line-height: 1.3;
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 5px 10px -3px rgba(180, 160, 140, 0.2), 0 4px 6px -4px rgba(180, 160, 140, 0.1), inset 0 -4px 0 0 #EAE2D9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .menu-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 7px 20px -5px rgba(120, 100, 100, 0.2);
-            background-color: #fffbf8;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(180, 160, 140, 0.25), 0 4px 6px -4px rgba(180, 160, 140, 0.15), inset 0 -4px 0 0 #EAE2D9;
         }
+        .menu-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px 0 rgba(180, 160, 140, 0.1), inset 0 -2px 0 0 #EAE2D9;
+        }
+        .menu-button-text {
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: clamp(1rem, 4.5vw, 1.2rem);
+            flex-grow: 1;
+            text-align: center;
+        }
+        .counter {
+            font-family: var(--font-question);
+            font-size: 0.75rem;
+            font-style: normal;
+            background-color: var(--color-beige);
+            color: var(--color-grey);
+            padding: 0.2rem 0.6rem;
+            border-radius: 99px;
+            font-weight: normal;
+            flex-shrink: 0;
+            margin-left: 0.75rem;
+        }
+        .global-reset-btn {
+            display: block;
+            margin-top: 3rem;
+            color: var(--color-grey);
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: underline;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .global-reset-btn:hover {
+            opacity: 1;
+        }
+
 
         /* Styles des pages de jeu */
         .back-to-menu {
             position: absolute;
-            top: 1.5rem;
-            left: 1.5rem;
-            font-family: var(--font-title);
-            color: var(--color-terracotta);
+            top: 1rem;
+            left: 1rem;
+            background-color: #ffffff;
+            color: var(--color-text-dark);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
             z-index: 10;
+            transition: transform 0.2s;
+        }
+        .back-to-menu:hover {
+            transform: scale(1.1);
         }
         .game-page-container {
             position: relative;
         }
+        /* MODIFIÉ : Mise en page du titre corrigée */
+        .page-title {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            color: var(--color-text-dark);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            margin-top: 1rem;
+        }
+        .page-title .main-text {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+        .page-title .sub-text {
+            font-family: var(--font-question);
+            font-style: italic;
+            font-size: clamp(1.5rem, 6vw, 2rem);
+        }
+
 
         /* La carte à flasher */
         .flashcard {
@@ -115,14 +178,10 @@
             border-radius: 12px;
             width: 100%;
             aspect-ratio: 3 / 4;
-            margin: 1.5rem auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            margin: 0 auto;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             position: relative;
-            transition: transform 0.5s, opacity 0.5s;
+            transition: transform 1.2s;
             transform-style: preserve-3d;
         }
         
@@ -171,6 +230,8 @@
         .flashcard-back {
             background-color: white;
             transform: rotateY(180deg);
+            position: relative;
+            overflow: hidden;
         }
 
         .card-question {
@@ -179,9 +240,10 @@
             flex-grow: 1;
             display: flex;
             align-items: center;
+            z-index: 1;
         }
         
-        .discussion-card-text {
+        .discussion-card-text, .plans-card-text {
             font-family: var(--font-question);
             font-style: italic;
         }
@@ -199,6 +261,7 @@
             opacity: 0.8;
             margin: 0.75rem 0;
             font-size: 1rem;
+            z-index: 1;
         }
 
         .card-decorator::before, .card-decorator::after {
@@ -242,6 +305,7 @@
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s, opacity 0.2s;
             box-shadow: 0 4px 15px -5px var(--color-terracotta);
+            margin-top: 1.5rem;
         }
         .draw-button:disabled {
             opacity: 0.5;
@@ -263,23 +327,86 @@
         /* Styles spécifiques aux défis */
         .challenge-card-front {
             background-color: var(--color-fun-yellow);
-            position: relative;
-            overflow: hidden;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='25' font-size='20' transform='rotate(-15 10 25)' opacity='0.1' fill='%234B3832'%3E🎲%3C/text%3E%3Ctext x='70' y='30' font-size='20' transform='rotate(15 70 30)' opacity='0.1' fill='%234B3832'%3E🎭%3C/text%3E%3Ctext x='20' y='80' font-size='20' transform='rotate(10 20 80)' opacity='0.1' fill='%234B3832'%3E🎤%3C/text%3E%3Ctext x='80' y='75' font-size='20' transform='rotate(-10 80 75)' opacity='0.1' fill='%234B3832'%3E⏱️%3C/text%3E%3C/svg%3E");
-            background-size: 70px 70px;
         }
         .challenge-card-front .names {
             color: var(--color-text-dark);
         }
         .challenge-card-back {
-            background-color: #FFFBEB;
+            background-color: var(--color-fun-yellow-light);
+        }
+        .challenge-card-back .card-decorator,
+        .challenge-card-back .card-footer-app {
+            color: var(--color-fun-yellow-dark);
         }
         .challenge-draw-button {
-            background-color: #FBBF24;
-            box-shadow: 0 4px 15px -5px #FBBF24;
+            background-color: var(--color-fun-yellow-dark);
+            box-shadow: 0 4px 15px -5px var(--color-fun-yellow-dark);
         }
         .challenge-draw-button:hover:not(:disabled) {
-            box-shadow: 0 7px 20px -5px #FBBF24;
+            box-shadow: 0 7px 20px -5px var(--color-fun-yellow-dark);
+        }
+        
+        /* Styles pour "Plans sur la comète" */
+        .plans-card-front {
+            background-color: var(--color-plans-green);
+        }
+        .plans-card-front .names {
+            color: var(--color-text-dark);
+        }
+        .plans-card-back {
+            background-color: var(--color-plans-green-light);
+        }
+        .plans-card-back .card-decorator,
+        .plans-card-back .card-footer-app {
+            color: var(--color-plans-green-dark);
+        }
+        .plans-draw-button {
+            background-color: var(--color-plans-green-dark);
+            box-shadow: 0 4px 15px -5px var(--color-plans-green-dark);
+        }
+        .plans-draw-button:hover:not(:disabled) {
+            box-shadow: 0 7px 20px -5px var(--color-plans-green-dark);
+        }
+
+        /* Modal de confirmation */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        .modal-box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 90%;
+            width: 320px;
+        }
+        .modal-box p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .modal-box button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: var(--font-title);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+        }
+        .modal-confirm-btn {
+            background-color: var(--color-terracotta);
+            color: white;
+            margin-right: 0.5rem;
+        }
+        .modal-cancel-btn {
+            background-color: #e5e7eb;
         }
 
     </style>
@@ -289,21 +416,34 @@
     <div class="app-container">
         <!-- Page Menu -->
         <div id="menu-page">
-            <h1 class="menu-title">Louise & Félix</h1>
-            <p class="menu-subtitle">préparent leur mariage</p>
+            <h1 class="menu-title">Louise et Félix ...</h1>
             <div class="menu-buttons">
-                <!-- MODIFIÉ : Texte des boutons -->
-                <button class="menu-button" id="goto-challenge">Louise et Félix ...<br>Se lancent des défis</button>
-                <button class="menu-button" id="goto-discussion">Louise et Félix ...<br>Ont une bonne discussion</button>
-                <button class="menu-button" id="goto-other">Louise et Félix ...<br>Font des plans sur la comète</button>
+                <button class="menu-button" id="goto-challenge">
+                    <span class="menu-button-text">Se lancent des défis</span>
+                    <span id="challenge-counter" class="counter"></span>
+                </button>
+                <button class="menu-button" id="goto-discussion">
+                     <span class="menu-button-text">Ont une bonne discussion</span>
+                     <span id="discussion-counter" class="counter"></span>
+                </button>
+                <button class="menu-button" id="goto-plans">
+                     <span class="menu-button-text">Font des plans sur la comète</span>
+                     <span id="plans-counter" class="counter"></span>
+                </button>
             </div>
+            <a id="global-reset-btn" class="global-reset-btn">Réinitialiser la progression</a>
         </div>
 
         <!-- Page Sujet de Discussion -->
         <div id="discussion-page" class="hidden">
             <div class="game-page-container">
-                <a class="back-to-menu">← Menu</a>
-                <h1>Jeu de Discussion</h1>
+                <a class="back-to-menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>
+                </a>
+                <h1 class="page-title">
+                    <span class="main-text">Louise et Félix ...</span>
+                    <span class="sub-text">Ont une bonne discussion</span>
+                </h1>
                 
                 <div id="flashcard-discussion" class="flashcard">
                     <div class="flashcard-face flashcard-front">
@@ -331,8 +471,13 @@
         <!-- Page Défi -->
         <div id="challenge-page" class="hidden">
             <div class="game-page-container">
-                <a class="back-to-menu">← Menu</a>
-                <h1>Défis de Couple</h1>
+                <a class="back-to-menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>
+                </a>
+                <h1 class="page-title">
+                    <span class="main-text">Louise et Félix ...</span>
+                    <span class="sub-text">Se lancent des défis</span>
+                </h1>
                 
                 <div id="flashcard-challenge" class="flashcard">
                     <div class="flashcard-face flashcard-front challenge-card-front">
@@ -342,7 +487,13 @@
                         </div>
                     </div>
                     <div class="flashcard-face flashcard-back challenge-card-back">
+                        <div class="family-icon-app">
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><g transform="translate(5, 10)"><circle cx="25" cy="30" r="12" fill="#F5EBE0"/><path d="M15 20 Q 25 10, 35 20" stroke="#6d4c41" fill="none" stroke-width="4" stroke-linecap="round"/><rect x="15" y="42" width="20" height="35" rx="5" fill="#aab8c2"/><circle cx="55" cy="30" r="12" fill="#F5EBE0"/><path d="M45 22 Q 55 12, 65 22" stroke="#FFD700" fill="none" stroke-width="4" stroke-linecap="round"/><circle cx="52" cy="30" r="1.5" fill="#3498db"/><circle cx="58" cy="30" r="1.5" fill="#3498db"/><rect x="45" y="42" width="20" height="35" rx="5" fill="#FADADD"/><g transform="translate(70, 45)"><path d="M 0,20 C 0,0 20,0 20,20 C 20,35 15,35 10,30 C 5,35 0,35 0,20 Z" fill="#e6a456"/><circle cx="5" cy="15" r="2" fill="black"/><circle cx="15" cy="15" r="2" fill="black"/><path d="M 8,22 Q 10,25 12,22" stroke="black" fill="none" stroke-width="1"/><path d="M 2,8 Q 0,4 2,14" stroke="#e6a456" fill="none" stroke-width="3" stroke-linecap="round"/><path d="M 18,8 Q 20,4 18,14" stroke="#e6a456" fill="none" stroke-width="3" stroke-linecap="round"/></g></g></svg>
+                        </div>
+                        <div class="card-decorator">&#10048;</div>
                         <p id="challenge-text" class="card-question challenge-card-text">Cliquez sur le bouton pour tirer votre premier défi !</p>
+                        <div class="card-decorator">&#10048;</div>
+                        <div class="card-footer-app">Louise & Félix - 09/08/25</div>
                     </div>
                 </div>
 
@@ -350,125 +501,249 @@
                 <button id="reset-challenge-button" class="draw-button reset-button hidden">Mélanger à nouveau</button>
             </div>
         </div>
+        
+        <!-- Page Plans sur la comète -->
+        <div id="plans-page" class="hidden">
+            <div class="game-page-container">
+                <a class="back-to-menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>
+                </a>
+                <h1 class="page-title">
+                    <span class="main-text">Louise et Félix ...</span>
+                    <span class="sub-text">Font des plans sur la comète</span>
+                </h1>
+                
+                <div id="flashcard-plans" class="flashcard">
+                    <div class="flashcard-face flashcard-front plans-card-front">
+                        <div class="names">
+                           <span>Louise & Félix</span>
+                           <span class="names-subtitle">Font des plans sur la comète</span>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-back plans-card-back">
+                        <div class="family-icon-app">
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><g transform="translate(5, 10)"><circle cx="25" cy="30" r="12" fill="#F5EBE0"/><path d="M15 20 Q 25 10, 35 20" stroke="#6d4c41" fill="none" stroke-width="4" stroke-linecap="round"/><rect x="15" y="42" width="20" height="35" rx="5" fill="#aab8c2"/><circle cx="55" cy="30" r="12" fill="#F5EBE0"/><path d="M45 22 Q 55 12, 65 22" stroke="#FFD700" fill="none" stroke-width="4" stroke-linecap="round"/><circle cx="52" cy="30" r="1.5" fill="#3498db"/><circle cx="58" cy="30" r="1.5" fill="#3498db"/><rect x="45" y="42" width="20" height="35" rx="5" fill="#FADADD"/><g transform="translate(70, 45)"><path d="M 0,20 C 0,0 20,0 20,20 C 20,35 15,35 10,30 C 5,35 0,35 0,20 Z" fill="#e6a456"/><circle cx="5" cy="15" r="2" fill="black"/><circle cx="15" cy="15" r="2" fill="black"/><path d="M 8,22 Q 10,25 12,22" stroke="black" fill="none" stroke-width="1"/><path d="M 2,8 Q 0,4 2,14" stroke="#e6a456" fill="none" stroke-width="3" stroke-linecap="round"/><path d="M 18,8 Q 20,4 18,14" stroke="#e6a456" fill="none" stroke-width="3" stroke-linecap="round"/></g></g></svg>
+                        </div>
+                        <div class="card-decorator">&#10048;</div>
+                        <p id="plans-text" class="card-question plans-card-text">Cliquez sur le bouton pour tirer votre première carte !</p>
+                        <div class="card-decorator">&#10048;</div>
+                        <div class="card-footer-app">Louise & Félix - 09/08/25</div>
+                    </div>
+                </div>
+
+                <button id="draw-plans-button" class="draw-button plans-draw-button">Tirer une carte</button>
+                <button id="reset-plans-button" class="draw-button reset-button hidden">Mélanger à nouveau</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="confirm-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <p id="confirm-modal-text">Êtes-vous sûr ?</p>
+            <button id="confirm-yes-btn" class="modal-confirm-btn">Oui</button>
+            <button id="confirm-no-btn" class="modal-cancel-btn">Non</button>
+        </div>
     </div>
 
+
     <script>
-        // --- Navigation ---
-        const menuPage = document.getElementById('menu-page');
-        const discussionPage = document.getElementById('discussion-page');
-        const challengePage = document.getElementById('challenge-page');
-
-        const gotoDiscussionBtn = document.getElementById('goto-discussion');
-        const gotoChallengeBtn = document.getElementById('goto-challenge');
-        const gotoOtherBtn = document.getElementById('goto-other');
-        const backToMenuBtns = document.querySelectorAll('.back-to-menu');
-
-        function showPage(pageToShow) {
-            menuPage.classList.add('hidden');
-            discussionPage.classList.add('hidden');
-            challengePage.classList.add('hidden');
-            pageToShow.classList.remove('hidden');
-        }
-
-        gotoDiscussionBtn.addEventListener('click', () => showPage(discussionPage));
-        gotoChallengeBtn.addEventListener('click', () => showPage(challengePage));
-        
-        backToMenuBtns.forEach(btn => {
-            btn.addEventListener('click', () => showPage(menuPage));
-        });
-        
-        gotoOtherBtn.addEventListener('click', () => {
-            alert('Cette section sera bientôt disponible !');
-        });
-
-        // --- Logique Générique du jeu de cartes ---
-        function setupFlashcardGame(config) {
-            let deck = [];
-            let isCardFlipped = false;
-
-            function shuffleDeck() {
-                deck = [...config.items].sort(() => Math.random() - 0.5);
+        // --- DATA ---
+        const allGamesData = {
+            discussion: {
+                items: [
+                    "Qu'est ce qui te fait le plus peur pour l'avenir (pas lié à notre relation) ?", "Quel est ton souvenir préféré dans notre histoire ?", "Qu'as-tu appris sur toi grâce à moi ?", "Quel moment a fait basculer notre relation dans quelque chose de sérieux ?", "Qu'est ce que je t'apporte ?", "Dans quels moments tu te sens le plus aimée par moi ?", "Qu'est ce que tu n'as jamais osé me dire mais que tu aimerais que je sache ?", "Qu'est ce qui te fait le plus peur pour l'avenir (lié à notre relation) ?", "Qu'est ce qui te fait le plus te dire que notre couple va fonctionner ?", "Quand as-tu le plus besoin de moi ?", "Que puis-je faire pour que tu te sentes mieux compris(e) dans le couple ?", "Quelles sont nos plus grandes forces en tant qu'équipe ?", "Te sens-tu à l'aise pour exprimer tes envies \"au lit\" ?", "Quel trait de ta personalité n'exprimes-tu que avec moi ?", "Qu'est ce que tu voudrais que je comprenne mieux chez toi ?", "Comment notre couple t'a fait évoluer ?", "Qu'est ce qui te fait être fière de notre relation ?", "Qu'est ce qui te fait le plus peur dans le mariage ?", "Comment est-ce que tu nous vois dans 10 ans ?", "Pour toi c'est quoi une vie réussie ?", "Quel projet à deux te ferait le plus vibrer dans un monde où tout est possible ?", "Qu'est ce que tu veux nous souhaiter pour notre mariage ?", "Qu'est ce que tu aimes dans notre quotidien ?", "Quel est ton moment préféré de la journée avec moi ?", "Quelle attention te fait le plus plaisir ?", "Qu'est ce qu'on devrait faire plus souvent ?", "Quelles sont les valeurs les plus importantes pour toi ?", "Selon toi, de quoi a besoin un couple pour être solide ?", "C'est quoi pour toi la fidélité ?", "Quelle difficulté t'a prouvé qu'on était une belle équipe ?", "Si on était deux animaux, on serait lesquels ?", "Si on écrivait un livre ensemble, comment on l'appelerait ?", "Si tu pouvais revivre une journée avec moi, laquelle ce serait ?", "Tu serais prête à faire quoi par amour ?", "Si je disparaissais pendant un mois, qu'est ce qui te manquerait le plus ?", "Si tu devais me faire une promesse, laquelle est-ce que ça serait ?", "Au delà de la cérémonie, qu'est ce que le mariage signifie pour toi ?", "Qu'est ce que tu redoutes le plus dans le mariage ?", "Qu'est ce que tu aimes le plus dans l'idée du mariage ?", "Est-ce que Marvin a changé ta perception de certaines choses ?", "C'est quoi pour toi le secret du bonheur ?", "Qu'est ce qui est le plus important pour toi dans la vie ?", "Est-ce que la phrase \"jusqu'à ce que la mort nous sépare\" est vraiment à respecter selon toi ?", "C'est quoi pour toi une chouette famille ?", "Qu'est ce que tu souhaites à nos enfants ?", "Décris moi tes futurs enfants comme tu rêverais qu'ils soient ?", "Qu'est ce qui pourrait te faire mettre fin à ton mariage ?", "Pourquoi tu as voulu te marier avec moi ?", "Qu'est ce que tu nous souhaites pour le 9 août ?", "Qu'est ce que tu voudrais changer chez toi ? Et chez moi ?", "Joker : choisis la question que tu veux poser !", "Joker : choisis la question que tu veux poser !"
+                ]
+            },
+            challenge: {
+                items: [
+                    "Louise imite Félix en train de faire son habitude la plus marrante. Félix doit deviner de quelle habitude il s'agit.", "Félix imite Louise en train de faire son habitude la plus marrante. Louise doit deviner de quelle habitude il s'agit.", "Louise mime une situation génante vécue par Félix. Il doit deviner laquelle.", "Félix mime une situation génante vécue par Louise. Elle doit deviner laquelle.", "Louise imite Félix qui danse", "Louise décrit trois souvenirs dont un est faux. Félix doit deviner lequel.", "Félix décrit trois souvenirs dont un est faux. Louise doit deviner lequel.", "Louise doit imiter un appel au service client pour un \"mari grincheux\"", "Félix doit imiter un appel au service client pour une \"femme capricieuse\"", "Louise doit trouver un objet qui lui évoque sa relation avec son futur mari, qu'elle aime tendrement.", "Félix doit trouver un objet qui lui évoque sa relation avec sa future femme, qu'il aime passionément.", "Félix doit faire un compliment sincère à Louise, juste comme ça parce qu'il l'aime", "Louise doit faire un compliment sincère à Félix, c'est beau l'amour !", "Louise doit meumeumer une chanson et Félix doit deviner", "Félix doit meumeumer une chanson et Louise doit deviner", "Louise doit dire l'oiseau préféré de Félix, sinon elle a droit à une leçon sur les oiseaux donnée par le professeur Félix", "Félix doit dire la fleur préférée de Louise, si il n'y parvient pas il doit lui en offrir une après la retraite", "Louise doit penser à un endroit où elle aimerait être, Félix doit trouver cet endroit en posant uniquement des questions ouvertes", "Félix doit penser à un endroit où il aimerait être, Louise doit trouver cet endroit en posant uniquement des questions ouvertes", "Félix doit écrire un haiku à Louise", "Louise doit écrire un haiku à Félix", "Louise doit vendre Félix en 15 secondes à une fille qui se cherche un mari", "Félix doit vendre Louise en 15 secondes à un homme qui se cherche une femme", "Félix doit composer le menu idéal pour Louise (entrée, plat, dessert, boisson, ...)", "Louise doit composer le menu idéal pour Félix (entrée, plat, dessert, boisson, ...)"
+                ]
+            },
+            plans: {
+                items: [
+                    "A quoi ressemblera notre maison dans 10 ans ?",
+                    "Comment sera Marvin dans 5 ans ?"
+                ]
             }
+        };
 
-            function resetGame() {
-                shuffleDeck();
-                isCardFlipped = false;
-                config.flashcard.classList.remove('is-flipped');
-                config.drawButton.disabled = false;
-                config.drawButton.textContent = config.buttonInitialText;
-                config.resetButton.classList.add('hidden');
-                setTimeout(() => {
-                    config.textElement.textContent = config.initialText;
-                }, 300);
-            }
+        // --- Game Manager ---
+        const gameManager = {
+            games: {},
+            init() {
+                // Navigation
+                const menuPage = document.getElementById('menu-page');
+                const discussionPage = document.getElementById('discussion-page');
+                const challengePage = document.getElementById('challenge-page');
+                const plansPage = document.getElementById('plans-page');
+                document.getElementById('goto-discussion').addEventListener('click', () => this.showPage(discussionPage));
+                document.getElementById('goto-challenge').addEventListener('click', () => this.showPage(challengePage));
+                document.getElementById('goto-plans').addEventListener('click', () => this.showPage(plansPage));
+                document.querySelectorAll('.back-to-menu').forEach(btn => btn.addEventListener('click', () => this.showPage(menuPage)));
+                document.getElementById('global-reset-btn').addEventListener('click', () => {
+                    this.showConfirmModal("Êtes-vous sûr de vouloir réinitialiser toute votre progression ?", () => {
+                        this.resetAllGames();
+                    });
+                });
 
-            config.drawButton.addEventListener('click', () => {
-                if (deck.length === 0) {
-                     return;
-                }
-
-                const randomItem = deck.pop();
-
-                if (isCardFlipped) {
-                    config.flashcard.classList.remove('is-flipped');
-                    setTimeout(() => {
-                        config.textElement.textContent = randomItem;
-                        config.flashcard.classList.add('is-flipped');
-                    }, 300);
-                } else {
-                    config.textElement.textContent = randomItem;
-                    config.flashcard.classList.add('is-flipped');
-                    isCardFlipped = true;
-                }
+                // Setup games
+                this.setupGame('discussion', {
+                    items: allGamesData.discussion.items,
+                    flashcard: document.getElementById('flashcard-discussion'),
+                    textElement: document.getElementById('question-text'),
+                    drawButton: document.getElementById('draw-discussion-button'),
+                    resetButton: document.getElementById('reset-discussion-button'),
+                    counterElement: document.getElementById('discussion-counter'),
+                    initialText: 'Cliquez sur le bouton pour tirer votre première carte !',
+                    buttonInitialText: 'Tirer une carte',
+                    buttonNextText: 'Tirer une autre carte'
+                });
+                this.setupGame('challenge', {
+                    items: allGamesData.challenge.items,
+                    flashcard: document.getElementById('flashcard-challenge'),
+                    textElement: document.getElementById('challenge-text'),
+                    drawButton: document.getElementById('draw-challenge-button'),
+                    resetButton: document.getElementById('reset-challenge-button'),
+                    counterElement: document.getElementById('challenge-counter'),
+                    initialText: 'Cliquez sur le bouton pour tirer votre premier défi !',
+                    buttonInitialText: 'Tirer un défi',
+                    buttonNextText: 'Tirer un autre défi'
+                });
+                 this.setupGame('plans', {
+                    items: allGamesData.plans.items,
+                    flashcard: document.getElementById('flashcard-plans'),
+                    textElement: document.getElementById('plans-text'),
+                    drawButton: document.getElementById('draw-plans-button'),
+                    resetButton: document.getElementById('reset-plans-button'),
+                    counterElement: document.getElementById('plans-counter'),
+                    initialText: 'Cliquez sur le bouton pour tirer votre première carte !',
+                    buttonInitialText: 'Tirer une carte',
+                    buttonNextText: 'Tirer une autre carte'
+                });
                 
-                config.drawButton.textContent = config.buttonNextText;
+                this.updateAllCounters();
+            },
+            showPage(pageToShow) {
+                document.getElementById('menu-page').classList.add('hidden');
+                document.getElementById('discussion-page').classList.add('hidden');
+                document.getElementById('challenge-page').classList.add('hidden');
+                document.getElementById('plans-page').classList.add('hidden');
+                pageToShow.classList.remove('hidden');
+                this.updateAllCounters();
+            },
+            setupGame(gameId, config) {
+                const game = {
+                    ...config,
+                    deck: [],
+                    isCardFlipped: false,
+                    totalItems: config.items.length,
 
-                if (deck.length === 0) {
-                    config.drawButton.disabled = true;
-                    config.resetButton.classList.remove('hidden');
-                    setTimeout(() => {
-                        config.flashcard.classList.remove('is-flipped');
+                    reset: () => {
+                        const savedDeck = this.loadState(gameId);
+                        game.deck = savedDeck ? [...savedDeck] : [...game.items].sort(() => Math.random() - 0.5);
+                        
+                        game.isCardFlipped = false;
+                        game.flashcard.classList.remove('is-flipped');
+                        game.drawButton.disabled = false;
+                        game.drawButton.textContent = game.buttonInitialText;
+                        game.resetButton.classList.add('hidden');
                         setTimeout(() => {
-                           config.textElement.textContent = "Vous avez pioché toutes les cartes !";
-                        }, 300);
-                    }, 2000);
-                }
-            });
-            
-            config.resetButton.addEventListener('click', resetGame);
-            
-            resetGame();
-        }
+                            game.textElement.textContent = game.initialText;
+                        }, 600); // Moitié de la durée de l'animation
+                        this.updateCounter(gameId);
+                        this.saveState(gameId, game.deck);
+                    },
 
-        // --- Setup pour "Sujet de Discussion" ---
-        const questions = [
-            "Qu'est ce qui te fait le plus peur pour l'avenir (pas lié à notre relation) ?", "Quel est ton souvenir préféré dans notre histoire ?", "Qu'as-tu appris sur toi grâce à moi ?", "Quel moment a fait basculer notre relation dans quelque chose de sérieux ?", "Qu'est ce que je t'apporte ?", "Dans quels moments tu te sens le plus aimée par moi ?", "Qu'est ce que tu n'as jamais osé me dire mais que tu aimerais que je sache ?", "Qu'est ce qui te fait le plus peur pour l'avenir (lié à notre relation) ?", "Qu'est ce qui te fait le plus te dire que notre couple va fonctionner ?", "Quand as-tu le plus besoin de moi ?", "Que puis-je faire pour que tu te sentes mieux compris(e) dans le couple ?", "Quelles sont nos plus grandes forces en tant qu'équipe ?", "Te sens-tu à l'aise pour exprimer tes envies \"au lit\" ?", "Quel trait de ta personalité n'exprimes-tu que avec moi ?", "Qu'est ce que tu voudrais que je comprenne mieux chez toi ?", "Comment notre couple t'a fait évoluer ?", "Qu'est ce qui te fait être fière de notre relation ?", "Qu'est ce qui te fait le plus peur dans le mariage ?", "Comment est-ce que tu nous vois dans 10 ans ?", "Pour toi c'est quoi une vie réussie ?", "Quel projet à deux te ferait le plus vibrer dans un monde où tout est possible ?", "Qu'est ce que tu veux nous souhaiter pour notre mariage ?", "Qu'est ce que tu aimes dans notre quotidien ?", "Quel est ton moment préféré de la journée avec moi ?", "Quelle attention te fait le plus plaisir ?", "Qu'est ce qu'on devrait faire plus souvent ?", "Quelles sont les valeurs les plus importantes pour toi ?", "Selon toi, de quoi a besoin un couple pour être solide ?", "C'est quoi pour toi la fidélité ?", "Quelle difficulté t'a prouvé qu'on était une belle équipe ?", "Si on était deux animaux, on serait lesquels ?", "Si on écrivait un livre ensemble, comment on l'appelerait ?", "Si tu pouvais revivre une journée avec moi, laquelle ce serait ?", "Tu serais prête à faire quoi par amour ?", "Si je disparaissais pendant un mois, qu'est ce qui te manquerait le plus ?", "Si tu devais me faire une promesse, laquelle est-ce que ça serait ?", "Au delà de la cérémonie, qu'est ce que le mariage signifie pour toi ?", "Qu'est ce que tu redoutes le plus dans le mariage ?", "Qu'est ce que tu aimes le plus dans l'idée du mariage ?", "Est-ce que Marvin a changé ta perception de certaines choses ?", "C'est quoi pour toi le secret du bonheur ?", "Qu'est ce qui est le plus important pour toi dans la vie ?", "Est-ce que la phrase \"jusqu'à ce que la mort nous sépare\" est vraiment à respecter selon toi ?", "C'est quoi pour toi une chouette famille ?", "Qu'est ce que tu souhaites à nos enfants ?", "Décris moi tes futurs enfants comme tu rêverais qu'ils soient ?", "Qu'est ce qui pourrait te faire mettre fin à ton mariage ?", "Pourquoi tu as voulu te marier avec moi ?", "Qu'est ce que tu nous souhaites pour le 9 août ?", "Qu'est ce que tu voudrais changer chez toi ? Et chez moi ?", "Joker : choisis la question que tu veux poser !", "Joker : choisis la question que tu veux poser !"
-        ];
-        setupFlashcardGame({
-            items: questions,
-            flashcard: document.getElementById('flashcard-discussion'),
-            textElement: document.getElementById('question-text'),
-            drawButton: document.getElementById('draw-discussion-button'),
-            resetButton: document.getElementById('reset-discussion-button'),
-            initialText: 'Cliquez sur le bouton pour tirer votre première carte !',
-            buttonInitialText: 'Tirer une carte',
-            buttonNextText: 'Tirer une autre carte'
-        });
+                    draw: () => {
+                        if (game.deck.length === 0) return;
+                        const randomItem = game.deck.pop();
 
-        // --- Setup pour "Défi" ---
-        const challenges = [
-            "Louise imite Félix en train de faire son habitude la plus marrante. Félix doit deviner de quelle habitude il s'agit.", "Félix imite Louise en train de faire son habitude la plus marrante. Louise doit deviner de quelle habitude il s'agit.", "Louise mime une situation génante vécue par Félix. Il doit deviner laquelle.", "Félix mime une situation génante vécue par Louise. Elle doit deviner laquelle.", "Louise imite Félix qui danse", "Louise décrit trois souvenirs dont un est faux. Félix doit deviner lequel.", "Félix décrit trois souvenirs dont un est faux. Louise doit deviner lequel.", "Louise doit imiter un appel au service client pour un \"mari grincheux\"", "Félix doit imiter un appel au service client pour une \"femme capricieuse\"", "Louise doit trouver un objet qui lui évoque sa relation avec son futur mari, qu'elle aime tendrement.", "Félix doit trouver un objet qui lui évoque sa relation avec sa future femme, qu'il aime passionément.", "Félix doit faire un compliment sincère à Louise, juste comme ça parce qu'il l'aime", "Louise doit faire un compliment sincère à Félix, c'est beau l'amour !", "Louise doit meumeumer une chanson et Félix doit deviner", "Félix doit meumeumer une chanson et Louise doit deviner", "Louise doit dire l'oiseau préféré de Félix, sinon elle a droit à une leçon sur les oiseaux donnée par le professeur Félix", "Félix doit dire la fleur préférée de Louise, si il n'y parvient pas il doit lui en offrir une après la retraite", "Louise doit penser à un endroit où elle aimerait être, Félix doit trouver cet endroit en posant uniquement des questions ouvertes", "Félix doit penser à un endroit où il aimerait être, Louise doit trouver cet endroit en posant uniquement des questions ouvertes", "Félix doit écrire un haiku à Louise", "Louise doit écrire un haiku à Félix", "Louise doit vendre Félix en 15 secondes à une fille qui se cherche un mari", "Félix doit vendre Louise en 15 secondes à un homme qui se cherche une femme", "Félix doit composer le menu idéal pour Louise (entrée, plat, dessert, boisson, ...)", "Louise doit composer le menu idéal pour Félix (entrée, plat, dessert, boisson, ...)"
-        ];
-        setupFlashcardGame({
-            items: challenges,
-            flashcard: document.getElementById('flashcard-challenge'),
-            textElement: document.getElementById('challenge-text'),
-            drawButton: document.getElementById('draw-challenge-button'),
-            resetButton: document.getElementById('reset-challenge-button'),
-            initialText: 'Cliquez sur le bouton pour tirer votre premier défi !',
-            buttonInitialText: 'Tirer un défi',
-            buttonNextText: 'Tirer un autre défi'
-        });
+                        if (game.isCardFlipped) {
+                            game.flashcard.classList.remove('is-flipped');
+                            setTimeout(() => {
+                                game.textElement.textContent = randomItem;
+                                game.flashcard.classList.add('is-flipped');
+                            }, 600); // Moitié de la durée de l'animation
+                        } else {
+                            game.textElement.textContent = randomItem;
+                            game.flashcard.classList.add('is-flipped');
+                            game.isCardFlipped = true;
+                        }
+                        
+                        game.drawButton.textContent = game.buttonNextText;
+                        this.updateCounter(gameId);
+                        this.saveState(gameId, game.deck);
+
+                        if (game.deck.length === 0) {
+                            game.drawButton.disabled = true;
+                            game.resetButton.classList.remove('hidden');
+                            setTimeout(() => {
+                                game.flashcard.classList.remove('is-flipped');
+                                setTimeout(() => {
+                                   game.textElement.textContent = "Vous avez pioché toutes les cartes !";
+                                }, 600);
+                            }, 2000);
+                        }
+                    }
+                };
+                game.drawButton.addEventListener('click', game.draw);
+                game.resetButton.addEventListener('click', game.reset);
+                this.games[gameId] = game;
+                game.reset();
+            },
+            updateCounter(gameId) {
+                const game = this.games[gameId];
+                const drawnCount = game.totalItems - game.deck.length;
+                game.counterElement.textContent = `${drawnCount} / ${game.totalItems} vues`;
+            },
+            updateAllCounters() {
+                Object.keys(this.games).forEach(gameId => this.updateCounter(gameId));
+            },
+            saveState(gameId, deck) {
+                localStorage.setItem(`flashcard_deck_${gameId}`, JSON.stringify(deck));
+            },
+            loadState(gameId) {
+                const savedDeck = localStorage.getItem(`flashcard_deck_${gameId}`);
+                return savedDeck ? JSON.parse(savedDeck) : null;
+            },
+            resetAllGames() {
+                Object.keys(this.games).forEach(gameId => {
+                    localStorage.removeItem(`flashcard_deck_${gameId}`);
+                    this.games[gameId].reset();
+                });
+            },
+            showConfirmModal(text, onConfirm) {
+                const modal = document.getElementById('confirm-modal');
+                const textElement = document.getElementById('confirm-modal-text');
+                const yesBtn = document.getElementById('confirm-yes-btn');
+                const noBtn = document.getElementById('confirm-no-btn');
+
+                textElement.textContent = text;
+                modal.classList.remove('hidden');
+
+                const confirmHandler = () => {
+                    onConfirm();
+                    modal.classList.add('hidden');
+                    cleanup();
+                };
+
+                const cancelHandler = () => {
+                    modal.classList.add('hidden');
+                    cleanup();
+                };
+
+                const cleanup = () => {
+                    yesBtn.removeEventListener('click', confirmHandler);
+                    noBtn.removeEventListener('click', cancelHandler);
+                };
+
+                yesBtn.addEventListener('click', confirmHandler);
+                noBtn.addEventListener('click', cancelHandler);
+            }
+        };
+
+        gameManager.init();
+
     </script>
 </body>
 </html>
