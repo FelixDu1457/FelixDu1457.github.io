@@ -190,7 +190,6 @@
         .back-to-menu:hover {
             transform: scale(1.1);
         }
-        /* MODIFIÉ : Structure de la page de jeu corrigée */
         .game-page-container {
             position: relative;
             width: 100%;
@@ -205,7 +204,7 @@
             line-height: 1.2;
             color: var(--color-text-dark);
             text-align: center;
-            padding: 0 4rem; /* Pour ne pas passer sous le bouton retour */
+            padding: 0 4rem;
         }
         .page-title .main-text {
             font-family: var(--font-title);
@@ -225,7 +224,8 @@
             border: 1px solid var(--color-terracotta);
             border-radius: 12px;
             width: 100%;
-            aspect-ratio: 3 / 4;
+            /* MODIFIÉ : Hauteur réduite de 20% */
+            aspect-ratio: 15 / 16;
             margin: 0 auto;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             position: relative;
@@ -520,10 +520,10 @@
         <!-- Page Sujet de Discussion -->
         <div id="discussion-page" class="hidden">
             <div class="game-page-container">
-                <a class="back-to-menu">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>
-                </a>
                 <div class="page-header">
+                    <a class="back-to-menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>
+                    </a>
                     <h1 class="page-title">
                         <span class="main-text">Louise et Félix ...</span>
                         <span class="sub-text">Ont une bonne discussion</span>
