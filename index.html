@@ -20,9 +20,12 @@
             --color-fun-yellow: #FDE68A;
             --color-fun-yellow-dark: #FBBF24;
             --color-fun-yellow-light: #FFFBEB;
-            --color-plans-green: #E0F2E9;
-            --color-plans-green-dark: #3D8B66;
-            --color-plans-green-light: #F8FBF9;
+            --color-souvenirs-blue: #D1D5DB;
+            --color-souvenirs-blue-dark: #4F46E5;
+            --color-souvenirs-blue-light: #F0F2FF;
+            --color-quiz-purple: #E9D5FF;
+            --color-quiz-purple-dark: #9333EA;
+            --color-quiz-purple-light: #FBF9FF;
             --color-grey: #a1a1aa;
         }
 
@@ -60,7 +63,7 @@
             color: var(--color-text-dark);
         }
         
-        /* NOUVEAU : Styles pour l'écran de connexion */
+        /* Styles pour l'écran de connexion */
         #login-page {
             background-color: #F8F5F1;
             padding: 2.5rem 2rem;
@@ -187,22 +190,22 @@
         .back-to-menu:hover {
             transform: scale(1.1);
         }
+        /* MODIFIÉ : Structure de la page de jeu corrigée */
         .game-page-container {
             position: relative;
-            padding-top: 4rem;
+            width: 100%;
+        }
+        .page-header {
+            padding-top: 1rem;
+            margin-bottom: 1.5rem;
         }
         .page-title {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            padding: 0 4rem;
             display: flex;
             flex-direction: column;
             line-height: 1.2;
             color: var(--color-text-dark);
             text-align: center;
+            padding: 0 4rem; /* Pour ne pas passer sous le bouton retour */
         }
         .page-title .main-text {
             font-family: var(--font-title);
@@ -288,7 +291,7 @@
             z-index: 1;
         }
         
-        .discussion-card-text, .plans-card-text {
+        .discussion-card-text, .souvenirs-card-text, .quiz-card-text {
             font-family: var(--font-question);
             font-style: italic;
         }
@@ -391,26 +394,48 @@
             box-shadow: 0 7px 20px -5px var(--color-fun-yellow-dark);
         }
         
-        /* Styles pour "Plans sur la comète" */
-        .plans-card-front {
-            background-color: var(--color-plans-green);
+        /* Styles pour "Souvenirs" */
+        .souvenirs-card-front {
+            background-color: var(--color-souvenirs-blue);
         }
-        .plans-card-front .names {
+        .souvenirs-card-front .names {
             color: var(--color-text-dark);
         }
-        .plans-card-back {
-            background-color: var(--color-plans-green-light);
+        .souvenirs-card-back {
+            background-color: var(--color-souvenirs-blue-light);
         }
-        .plans-card-back .card-decorator,
-        .plans-card-back .card-footer-app {
-            color: var(--color-plans-green-dark);
+        .souvenirs-card-back .card-decorator,
+        .souvenirs-card-back .card-footer-app {
+            color: var(--color-souvenirs-blue-dark);
         }
-        .plans-draw-button {
-            background-color: var(--color-plans-green-dark);
-            box-shadow: 0 4px 15px -5px var(--color-plans-green-dark);
+        .souvenirs-draw-button {
+            background-color: var(--color-souvenirs-blue-dark);
+            box-shadow: 0 4px 15px -5px var(--color-souvenirs-blue-dark);
         }
-        .plans-draw-button:hover:not(:disabled) {
-            box-shadow: 0 7px 20px -5px var(--color-plans-green-dark);
+        .souvenirs-draw-button:hover:not(:disabled) {
+            box-shadow: 0 7px 20px -5px var(--color-souvenirs-blue-dark);
+        }
+        
+        /* Styles pour "Quiz" */
+        .quiz-card-front {
+            background-color: var(--color-quiz-purple);
+        }
+        .quiz-card-front .names {
+            color: var(--color-text-dark);
+        }
+        .quiz-card-back {
+            background-color: var(--color-quiz-purple-light);
+        }
+        .quiz-card-back .card-decorator,
+        .quiz-card-back .card-footer-app {
+            color: var(--color-quiz-purple-dark);
+        }
+        .quiz-draw-button {
+            background-color: var(--color-quiz-purple-dark);
+            box-shadow: 0 4px 15px -5px var(--color-quiz-purple-dark);
+        }
+        .quiz-draw-button:hover:not(:disabled) {
+            box-shadow: 0 7px 20px -5px var(--color-quiz-purple-dark);
         }
 
         /* Modal de confirmation */
@@ -458,7 +483,6 @@
 </head>
 <body>
     
-    <!-- NOUVEAU : Écran de connexion -->
     <div id="login-page" class="app-container">
         <h1 id="login-title">Accès privé</h1>
         <form id="login-form">
@@ -468,7 +492,6 @@
         </form>
     </div>
 
-    <!-- Contenu principal de l'application -->
     <div id="main-app" class="app-container hidden">
         <!-- Page Menu -->
         <div id="menu-page">
@@ -482,9 +505,13 @@
                      <span class="menu-button-text">Ont une bonne discussion</span>
                      <span id="discussion-counter" class="counter"></span>
                 </button>
-                <button class="menu-button" id="goto-plans">
-                     <span class="menu-button-text">Font des plans sur la comète</span>
-                     <span id="plans-counter" class="counter"></span>
+                <button class="menu-button" id="goto-souvenirs">
+                     <span class="menu-button-text">Se remémorent de bons souvenirs</span>
+                     <span id="souvenirs-counter" class="counter"></span>
+                </button>
+                <button class="menu-button" id="goto-quiz">
+                     <span class="menu-button-text">Vérifient qu'ils se connaissent bien</span>
+                     <span id="quiz-counter" class="counter"></span>
                 </button>
             </div>
             <a id="global-reset-btn" class="global-reset-btn">Réinitialiser la progression</a>
@@ -496,10 +523,12 @@
                 <a class="back-to-menu">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>
                 </a>
-                <h1 class="page-title">
-                    <span class="main-text">Louise et Félix ...</span>
-                    <span class="sub-text">Ont une bonne discussion</span>
-                </h1>
+                <div class="page-header">
+                    <h1 class="page-title">
+                        <span class="main-text">Louise et Félix ...</span>
+                        <span class="sub-text">Ont une bonne discussion</span>
+                    </h1>
+                </div>
                 
                 <div id="flashcard-discussion" class="flashcard">
                     <div class="flashcard-face flashcard-front">
@@ -527,13 +556,15 @@
         <!-- Page Défi -->
         <div id="challenge-page" class="hidden">
             <div class="game-page-container">
-                <a class="back-to-menu">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>
-                </a>
-                <h1 class="page-title">
-                    <span class="main-text">Louise et Félix ...</span>
-                    <span class="sub-text">Se lancent des défis</span>
-                </h1>
+                <div class="page-header">
+                    <a class="back-to-menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>
+                    </a>
+                    <h1 class="page-title">
+                        <span class="main-text">Louise et Félix ...</span>
+                        <span class="sub-text">Se lancent des défis</span>
+                    </h1>
+                </div>
                 
                 <div id="flashcard-challenge" class="flashcard">
                     <div class="flashcard-face flashcard-front challenge-card-front">
@@ -558,37 +589,75 @@
             </div>
         </div>
         
-        <!-- Page Plans sur la comète -->
-        <div id="plans-page" class="hidden">
+        <!-- Page Souvenirs -->
+        <div id="souvenirs-page" class="hidden">
             <div class="game-page-container">
-                <a class="back-to-menu">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>
-                </a>
-                <h1 class="page-title">
-                    <span class="main-text">Louise et Félix ...</span>
-                    <span class="sub-text">Font des plans sur la comète</span>
-                </h1>
+                <div class="page-header">
+                    <a class="back-to-menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>
+                    </a>
+                    <h1 class="page-title">
+                        <span class="main-text">Louise et Félix ...</span>
+                        <span class="sub-text">Se remémorent de bons souvenirs</span>
+                    </h1>
+                </div>
                 
-                <div id="flashcard-plans" class="flashcard">
-                    <div class="flashcard-face flashcard-front plans-card-front">
+                <div id="flashcard-souvenirs" class="flashcard">
+                    <div class="flashcard-face flashcard-front souvenirs-card-front">
                         <div class="names">
                            <span>Louise & Félix</span>
-                           <span class="names-subtitle">Font des plans sur la comète</span>
+                           <span class="names-subtitle">Se remémorent de bons souvenirs</span>
                         </div>
                     </div>
-                    <div class="flashcard-face flashcard-back plans-card-back">
+                    <div class="flashcard-face flashcard-back souvenirs-card-back">
                         <div class="family-icon-app">
                             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><g transform="translate(5, 10)"><circle cx="25" cy="30" r="12" fill="#F5EBE0"/><path d="M15 20 Q 25 10, 35 20" stroke="#6d4c41" fill="none" stroke-width="4" stroke-linecap="round"/><rect x="15" y="42" width="20" height="35" rx="5" fill="#aab8c2"/><circle cx="55" cy="30" r="12" fill="#F5EBE0"/><path d="M45 22 Q 55 12, 65 22" stroke="#FFD700" fill="none" stroke-width="4" stroke-linecap="round"/><circle cx="52" cy="30" r="1.5" fill="#3498db"/><circle cx="58" cy="30" r="1.5" fill="#3498db"/><rect x="45" y="42" width="20" height="35" rx="5" fill="#FADADD"/><g transform="translate(70, 45)"><path d="M 0,20 C 0,0 20,0 20,20 C 20,35 15,35 10,30 C 5,35 0,35 0,20 Z" fill="#e6a456"/><circle cx="5" cy="15" r="2" fill="black"/><circle cx="15" cy="15" r="2" fill="black"/><path d="M 8,22 Q 10,25 12,22" stroke="black" fill="none" stroke-width="1"/><path d="M 2,8 Q 0,4 2,14" stroke="#e6a456" fill="none" stroke-width="3" stroke-linecap="round"/><path d="M 18,8 Q 20,4 18,14" stroke="#e6a456" fill="none" stroke-width="3" stroke-linecap="round"/></g></g></svg>
                         </div>
                         <div class="card-decorator">&#10048;</div>
-                        <p id="plans-text" class="card-question plans-card-text">Cliquez sur le bouton pour tirer votre première carte !</p>
+                        <p id="souvenirs-text" class="card-question souvenirs-card-text">Cliquez sur le bouton pour tirer votre première carte !</p>
                         <div class="card-decorator">&#10048;</div>
                         <div class="card-footer-app">Louise & Félix - 09/08/25</div>
                     </div>
                 </div>
 
-                <button id="draw-plans-button" class="draw-button plans-draw-button">Tirer une carte</button>
-                <button id="reset-plans-button" class="draw-button reset-button hidden">Mélanger à nouveau</button>
+                <button id="draw-souvenirs-button" class="draw-button souvenirs-draw-button">Tirer une carte</button>
+                <button id="reset-souvenirs-button" class="draw-button reset-button hidden">Mélanger à nouveau</button>
+            </div>
+        </div>
+        
+        <!-- Page Quiz -->
+        <div id="quiz-page" class="hidden">
+            <div class="game-page-container">
+                <div class="page-header">
+                    <a class="back-to-menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>
+                    </a>
+                    <h1 class="page-title">
+                        <span class="main-text">Louise et Félix ...</span>
+                        <span class="sub-text">Vérifient qu'ils se connaissent bien</span>
+                    </h1>
+                </div>
+                
+                <div id="flashcard-quiz" class="flashcard">
+                    <div class="flashcard-face flashcard-front quiz-card-front">
+                        <div class="names">
+                           <span>Louise & Félix</span>
+                           <span class="names-subtitle">Vérifient qu'ils se connaissent bien</span>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-back quiz-card-back">
+                        <div class="family-icon-app">
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><g transform="translate(5, 10)"><circle cx="25" cy="30" r="12" fill="#F5EBE0"/><path d="M15 20 Q 25 10, 35 20" stroke="#6d4c41" fill="none" stroke-width="4" stroke-linecap="round"/><rect x="15" y="42" width="20" height="35" rx="5" fill="#aab8c2"/><circle cx="55" cy="30" r="12" fill="#F5EBE0"/><path d="M45 22 Q 55 12, 65 22" stroke="#FFD700" fill="none" stroke-width="4" stroke-linecap="round"/><circle cx="52" cy="30" r="1.5" fill="#3498db"/><circle cx="58" cy="30" r="1.5" fill="#3498db"/><rect x="45" y="42" width="20" height="35" rx="5" fill="#FADADD"/><g transform="translate(70, 45)"><path d="M 0,20 C 0,0 20,0 20,20 C 20,35 15,35 10,30 C 5,35 0,35 0,20 Z" fill="#e6a456"/><circle cx="5" cy="15" r="2" fill="black"/><circle cx="15" cy="15" r="2" fill="black"/><path d="M 8,22 Q 10,25 12,22" stroke="black" fill="none" stroke-width="1"/><path d="M 2,8 Q 0,4 2,14" stroke="#e6a456" fill="none" stroke-width="3" stroke-linecap="round"/><path d="M 18,8 Q 20,4 18,14" stroke="#e6a456" fill="none" stroke-width="3" stroke-linecap="round"/></g></g></svg>
+                        </div>
+                        <div class="card-decorator">&#10048;</div>
+                        <p id="quiz-text" class="card-question quiz-card-text">Cliquez sur le bouton pour tirer votre première carte !</p>
+                        <div class="card-decorator">&#10048;</div>
+                        <div class="card-footer-app">Louise & Félix - 09/08/25</div>
+                    </div>
+                </div>
+
+                <button id="draw-quiz-button" class="draw-button quiz-draw-button">Tirer une carte</button>
+                <button id="reset-quiz-button" class="draw-button reset-button hidden">Mélanger à nouveau</button>
             </div>
         </div>
     </div>
@@ -615,10 +684,14 @@
                     "Louise imite Félix en train de faire son habitude la plus marrante. Félix doit deviner de quelle habitude il s'agit.", "Félix imite Louise en train de faire son habitude la plus marrante. Louise doit deviner de quelle habitude il s'agit.", "Louise mime une situation génante vécue par Félix. Il doit deviner laquelle.", "Félix mime une situation génante vécue par Louise. Elle doit deviner laquelle.", "Louise imite Félix qui danse", "Louise décrit trois souvenirs dont un est faux. Félix doit deviner lequel.", "Félix décrit trois souvenirs dont un est faux. Louise doit deviner lequel.", "Louise doit imiter un appel au service client pour un \"mari grincheux\"", "Félix doit imiter un appel au service client pour une \"femme capricieuse\"", "Louise doit trouver un objet qui lui évoque sa relation avec son futur mari, qu'elle aime tendrement.", "Félix doit trouver un objet qui lui évoque sa relation avec sa future femme, qu'il aime passionément.", "Félix doit faire un compliment sincère à Louise, juste comme ça parce qu'il l'aime", "Louise doit faire un compliment sincère à Félix, c'est beau l'amour !", "Louise doit meumeumer une chanson et Félix doit deviner", "Félix doit meumeumer une chanson et Louise doit deviner", "Louise doit dire l'oiseau préféré de Félix, sinon elle a droit à une leçon sur les oiseaux donnée par le professeur Félix", "Félix doit dire la fleur préférée de Louise, si il n'y parvient pas il doit lui en offrir une après la retraite", "Louise doit penser à un endroit où elle aimerait être, Félix doit trouver cet endroit en posant uniquement des questions ouvertes", "Félix doit penser à un endroit où il aimerait être, Louise doit trouver cet endroit en posant uniquement des questions ouvertes", "Félix doit écrire un haiku à Louise", "Louise doit écrire un haiku à Félix", "Louise doit vendre Félix en 15 secondes à une fille qui se cherche un mari", "Félix doit vendre Louise en 15 secondes à un homme qui se cherche une femme", "Félix doit composer le menu idéal pour Louise (entrée, plat, dessert, boisson, ...)", "Louise doit composer le menu idéal pour Félix (entrée, plat, dessert, boisson, ...)"
                 ]
             },
-            plans: {
+            souvenirs: {
                 items: [
-                    "A quoi ressemblera notre maison dans 10 ans ?",
-                    "Comment sera Marvin dans 5 ans ?"
+                    "Le voyage de couple qui nous a le plus rapproché ?", "La chose la plus folle que l'on aie faite ensemble (Marvin se bouche les oreilles lol) ?", "Quel secret sommes-nous les seuls à partager ?", "Notre première dispute ?", "Le meilleur restaurant où on a mangé ?", "Le moment le plus gênant ?", "Un moment où on a pris une grande décision ?", "Une dispute qui nous a fait grandir ?", "Une fois où on a changé d'avis grâce à l'autre ?", "Une fois où on a eu peur de perdre l'autre ?", "Un moment où on s'est soutenus à fond ?", "La bêtise la plus drôle de Marvin ?", "Un chagrin qu'on a traversé à deux ?", "La liste de tous les surnoms de Margaret et de Marvin ?", "Notre photo préférée ?", "Un moment où on a ressenti de la fierté ?", "Une chose qu'on aurait jamais faite si on était pas ensembles ?", "Un fou rire dont tu te rappelles ?", "Une promesse qu'on s'est faite ?", "Un moment ou l'un a surpris l'autre ?", "Une fois ou on a vraiment eu l'impression d'être une équipe de choc ?", "Une chose qu'on a hâte de raconter à nos enfants ou nos petits-enfants ?"
+                ]
+            },
+            quiz: {
+                items: [
+                    "La cuisine que Félix préfère ?", "La cuisine que Louise préfère ?", "La boisson que Félix préfère ?", "La boisson que Louise préfère ?", "Le plat que Félix réussit le mieux ?", "Le plat que Louise réussit le mieux ?", "Le plat que Félix rate le plus souvent ?", "Le plat que Louise rate le plus souvent ?", "Le pays que Félix voudrait visiter après les USA ?", "Le pays que Louise voudrait visiter après les USA ?", "La ville que Félix a préférée ?", "La ville que Louise a préférée ?", "L’endroit où Félix préférerait vivre ?", "L’endroit où Louise préférerait vivre ?", "Le chanteur que Félix préfère ?", "Le chanteur que Louise préfère ?", "Le livre que Félix a préféré ?", "Le dessin animé de l’enfance de Félix ?", "Le dessin animé de l’enfance de Louise ?", "Ce que Félix voulait faire comme métier quand il était enfant ?", "Ce que Louise voulait faire comme métier quand elle était enfant ?", "La plus grosse bêtise de Félix ?", "La plus grosse bêtise de Louise ?", "La manie la plus étrange de Félix ?", "La manie la plus étrange de Louise ?", "L’objet dont Félix a le plus besoin ?", "L’objet dont Louise a le plus besoin ?", "Le moment de la journée que Félix préfère ?", "Le moment de la journée que Louise préfère ?", "L’expression que Félix utilise le plus souvent ?", "L’expression que Louise utilise le plus souvent ?", "Une expression que Félix a piquée à Louise ?", "Une expression que Louise a piquée à Félix ?", "La plus grande qualité de Félix ?", "La plus grande qualité de Louise ?", "Le plus grand défaut de Félix ?", "Le plus grand défaut de Louise ?", "Ce qui énerve Félix le plus ?", "Ce qui énerve Louise le plus ?", "Ce qui calme Félix quand il est énervé ?", "Ce qui calme Louise quand elle est énervée ?", "La cause qui touche le plus Félix ?", "La cause qui touche le plus Louise ?", "Le métier que Félix aurait fait dans une autre vie ?", "Le métier que Louise aurait fait dans une autre vie ?", "Les études que Félix aurait faites dans une autre vie ?", "Les études que Louise aurait faites dans une autre vie ?", "Le premier achat que Félix ferait s’il gagnait au lotto ?", "Le premier achat que Louise ferait si elle gagnait au lotto ?", "La plus grande peur de Félix ?", "La plus grande peur de Louise ?", "Le plus grand rêve de Félix ?", "Le plus grand rêve de Louise ?", "Ce que Félix voudrait qu’on retienne de lui ?", "Ce que Louise voudrait qu’on retienne d’elle ?", "Une activité que Félix voudrait tester ?", "Une activité que Louise voudrait tester ?"
                 ]
             }
         };
@@ -655,10 +728,12 @@
                 const menuPage = document.getElementById('menu-page');
                 const discussionPage = document.getElementById('discussion-page');
                 const challengePage = document.getElementById('challenge-page');
-                const plansPage = document.getElementById('plans-page');
+                const souvenirsPage = document.getElementById('souvenirs-page');
+                const quizPage = document.getElementById('quiz-page');
                 document.getElementById('goto-discussion').addEventListener('click', () => this.showPage(discussionPage));
                 document.getElementById('goto-challenge').addEventListener('click', () => this.showPage(challengePage));
-                document.getElementById('goto-plans').addEventListener('click', () => this.showPage(plansPage));
+                document.getElementById('goto-souvenirs').addEventListener('click', () => this.showPage(souvenirsPage));
+                document.getElementById('goto-quiz').addEventListener('click', () => this.showPage(quizPage));
                 document.querySelectorAll('.back-to-menu').forEach(btn => btn.addEventListener('click', () => this.showPage(menuPage)));
                 document.getElementById('global-reset-btn').addEventListener('click', () => {
                     this.showConfirmModal("Êtes-vous sûr de vouloir réinitialiser toute votre progression ?", () => {
@@ -689,13 +764,24 @@
                     buttonInitialText: 'Tirer un défi',
                     buttonNextText: 'Tirer un autre défi'
                 });
-                 this.setupGame('plans', {
-                    items: allGamesData.plans.items,
-                    flashcard: document.getElementById('flashcard-plans'),
-                    textElement: document.getElementById('plans-text'),
-                    drawButton: document.getElementById('draw-plans-button'),
-                    resetButton: document.getElementById('reset-plans-button'),
-                    counterElement: document.getElementById('plans-counter'),
+                 this.setupGame('souvenirs', {
+                    items: allGamesData.souvenirs.items,
+                    flashcard: document.getElementById('flashcard-souvenirs'),
+                    textElement: document.getElementById('souvenirs-text'),
+                    drawButton: document.getElementById('draw-souvenirs-button'),
+                    resetButton: document.getElementById('reset-souvenirs-button'),
+                    counterElement: document.getElementById('souvenirs-counter'),
+                    initialText: 'Cliquez sur le bouton pour tirer votre première carte !',
+                    buttonInitialText: 'Tirer une carte',
+                    buttonNextText: 'Tirer une autre carte'
+                });
+                 this.setupGame('quiz', {
+                    items: allGamesData.quiz.items,
+                    flashcard: document.getElementById('flashcard-quiz'),
+                    textElement: document.getElementById('quiz-text'),
+                    drawButton: document.getElementById('draw-quiz-button'),
+                    resetButton: document.getElementById('reset-quiz-button'),
+                    counterElement: document.getElementById('quiz-counter'),
                     initialText: 'Cliquez sur le bouton pour tirer votre première carte !',
                     buttonInitialText: 'Tirer une carte',
                     buttonNextText: 'Tirer une autre carte'
@@ -707,7 +793,8 @@
                 document.getElementById('menu-page').classList.add('hidden');
                 document.getElementById('discussion-page').classList.add('hidden');
                 document.getElementById('challenge-page').classList.add('hidden');
-                document.getElementById('plans-page').classList.add('hidden');
+                document.getElementById('souvenirs-page').classList.add('hidden');
+                document.getElementById('quiz-page').classList.add('hidden');
                 pageToShow.classList.remove('hidden');
                 this.updateAllCounters();
             },
@@ -774,7 +861,7 @@
             updateCounter(gameId) {
                 const game = this.games[gameId];
                 const drawnCount = game.totalItems - game.deck.length;
-                game.counterElement.textContent = `${drawnCount} / ${game.totalItems} vues`;
+                game.counterElement.textContent = `${drawnCount}/${game.totalItems}`;
             },
             updateAllCounters() {
                 Object.keys(this.games).forEach(gameId => this.updateCounter(gameId));
